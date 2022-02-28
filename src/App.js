@@ -1,44 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
-import { Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import img from './imageInSrc.jpg'
-function App() {
-  return (
-    <div className="App">
-      <>
-  <Form.Label style={{color:'red' , backgroundColor:'yellowgreen'}} htmlFor="inputPassword5">Password</Form.Label>
-  <Form.Control
-    type="password"
-    id="inputPassword5"
-    aria-describedby="passwordHelpBlock"
-  />
-  <Form.Text id="passwordHelpBlock" muted>
-    Your password must be 8-20 characters long, contain letters and numbers, and
-    must not contain spaces, special characters, or emoji.
-  </Form.Text>
-</>
-<div style={{border:"solid 1px black",maxWidth:"100vw"}}>
+import { logDOM } from '@testing-library/react'
+import React, { Component } from 'react'
 
-<h1 class="title red">Your name here</h1>
+export default class App extends Component {
+  state =
+  { 
+    fullName :'yassine ben aouicha'  ,
+    bio : "yassine mrawa7",
+     imgSrc : "logo192.png" ,
+     profession : "battal ",
+     showState : true ,
+     cpt : 0 ,
+     tasks : [
+       {id:Math.random() , action : 'wake up' ,isDone:true}
+     ]
+  }
+  
+  condition = () => {
+    this.setState({showState: !this.state.showState})
+  }
+  increment =()=> {
+    this.setState({cpt : this.state.cpt +1}) }
+   
+   autoCount = () => {
+     setInterval(() => {
+       this.increment()
+     }, 1000);
+   }
 
-<br />
+    componentDidMount(){
+    this.autoCount()
+    }
 
-<img src={img} />
+  render() {
 
-<br />
-
-<img src="imageInPublic.jpg" />
-
-</div>
-
-<video width="320" height="240" controls>
-
-<source src="myVideo.mp4" type="video/mp4" />
-
-</video>
-    </div>
-  );
+    return (
+      <div>
+        <h2>Counter :  {this.state.cpt }  </h2>
+        <button onClick={()=>this.condition()} > show profil </button>
+        {
+          this.state.showState &&  
+        
+        <div >
+          <h2> {this.state.fullName
+            }
+            </h2>
+          <h2> {this.state.bio
+            }  </h2>
+          <h2> {this.state.imgSrc
+            } </h2>
+          <h2> {this.state.profession
+            } </h2>
+        </div>
+  }
+      </div>
+    )
+  }
 }
-
-export default App;
